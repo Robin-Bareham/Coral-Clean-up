@@ -7,6 +7,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private InputActionAsset PlayerControls;
 
+    [SerializeField]
+    private Transform cameraRotation;
+
     [SerializeField] 
     private float moveForce = 10f;
     [SerializeField] 
@@ -81,18 +84,19 @@ public class CharacterController : MonoBehaviour
     {
         //Use of Rigidbody.AddForce to emulate underwater movement
 
-        // Horizontal movement: X and Z axes
-        Vector3 movement = new Vector3(
-            moveInput.x,
-            0f,
-            moveInput.y
-        );
+        // Get orientation
+        Vector3 forward = cameraRotation.forward;
+        Vector3 right = cameraRotation.right;
+        Vector3 up = cameraRotation.up;
 
+        //Calculate movement relative to camera
+        // Horizontal movement: X and Z axes
+        Vector3 movement = (right * moveInput.x) + (forward * moveInput.y);
         // Vertical movement: Y axis
-        movement.y = verticalInput;
+        movement += cameraRotation.up * verticalInput;
 
         // Apply force across all three axes
         // Left/Right, Up/Down, Forward/Back
-        rBody.AddForce(movement.x * -moveForce, movement.y * verticalForce, movement.z * -moveForce, ForceMode.Force);
+        rBody.AddForce(movement.x * moveForce, movement.y * verticalForce, movement.z * moveForce, ForceMode.Force);
     }
 }
