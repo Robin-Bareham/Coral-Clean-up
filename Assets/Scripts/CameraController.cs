@@ -3,37 +3,61 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
+    public float sensX = 100f;
+    public float sensY = 100f;
 
     public Transform orientation;
+
+    [SerializeField] private InputActionAsset playerControls;
+
+    private InputAction lookAction;
+    private Vector2 lookInput;
 
     private float xRotation;
     private float yRotation;
 
+    private void Awake()
+    {
+        // Get the Look action from the Player action map
+        InputActionMap map = playerControls.FindActionMap("Player");
+        lookAction = map.FindAction("Look");
+    }
+
+    private void OnEnable()
+    {
+        lookAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        lookAction.Disable();
+    }
+
     private void Start()
     {
-        //Lock cursor and turn invisible
+        // Lock cursor and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        //Get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        // Read mouse or gamepad look input
+        lookInput = lookAction.ReadValue<Vector2>();
 
-        //Seems strange, but matches how Unity handles rotations
+        // Calculate mouse movement
+        float mouseX = lookInput.x * sensX * Time.deltaTime;
+        float mouseY = lookInput.y * sensY * Time.deltaTime;
+
+        // Update rotation values
         yRotation += mouseX;
         xRotation -= mouseY;
 
-        //Limits look range to verticals to stop camera flipping
-        xRotation = Mathf.Clamp(xRotation, -90f, -90f);
+        // Clamp vertical rotation to prevent camera flipping
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Rotate camera and Orientation
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        // Rotate camera and player orientation
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
     }
-
 }

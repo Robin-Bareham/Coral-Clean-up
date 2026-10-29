@@ -6,45 +6,34 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField]
     private InputActionAsset PlayerControls;
-    private bool _Jump;
-    private bool _Crouch;
-    private bool Running = false;
-    private float Speed = 0;
+
+    [SerializeField] 
+    private float moveForce = 10f;
+    [SerializeField] 
+    private float verticalForce = 10f;
+
+
     private Rigidbody rBody;
-
-    [HideInInspector]
-    public bool losingStamina = false;
-    [HideInInspector]
-    public bool canJump = true;
-    [HideInInspector]
-    public bool isMoving = true;
-    [HideInInspector]
-    public bool isGrounded = true;
-    [HideInInspector]
-    public bool isUnderWater = true;
-
-    public float walkSpeed = 10;
-    public float runSpeed = 15;
-    public float AirModifier = 1.5f;
-    public float fakeFriction = 0.86f;
-    public float jumpForce = 40;
-    public float isGroundCheck = 1;
 
     private InputAction moveAction;
     private InputAction lookAction;
-    private InputAction jumpAction;
-    private InputAction crouchAction;
+    private InputAction riseAction;
+    private InputAction sinkAction;
     private InputAction interactAction;
+
     private Vector2 moveInput;
-    private Vector2 lookInput;
+    private float verticalInput;
 
     private void Awake()
     {
+        rBody = GetComponent<Rigidbody>();
+        
         InputActionMap map = PlayerControls.FindActionMap("Player");
+
         moveAction = map.FindAction("Move");
         lookAction = map.FindAction("Look");
-        jumpAction = map.FindAction("Jump");
-        crouchAction = map.FindAction("Crouch");
+        riseAction = map.FindAction("Rise");
+        sinkAction = map.FindAction("Sink");
         interactAction = map.FindAction("Interact");
     }
 
@@ -52,8 +41,8 @@ public class CharacterController : MonoBehaviour
     {
         moveAction.Enable();
         lookAction.Enable();
-        jumpAction.Enable();
-        crouchAction.Enable();
+        riseAction.Enable();
+        sinkAction.Enable();
         interactAction.Enable();
     }
 
@@ -61,63 +50,49 @@ public class CharacterController : MonoBehaviour
     {
         moveAction.Disable();
         lookAction.Disable();
-        jumpAction.Disable();
-        crouchAction.Disable();
+        riseAction.Disable();
+        sinkAction.Disable();
         interactAction.Disable();
     }
 
-    void Update()
+    private void Update()
     {
-        //Speed Modifier
-        if (Running == true && isMoving && isGrounded)
-        {
-            Speed = runSpeed;
-        }
-        else if (Running && isMoving && isGrounded)
-        {
-            Speed = walkSpeed;
-        }
-        else
-        {
-            Speed = walkSpeed / AirModifier;
-        }
+        // Read input every frame
+        moveInput = moveAction.ReadValue<Vector2>();
 
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, isGroundCheck);
-        //Running = Input.GetKey(KeyCode.LeftShift);
-        _Jump = jumpAction.ReadValue<bool>();
-        float h = moveInput.x;
-        float v = moveInput.y;
-
-        if (h >= 0.1 || h <= -0.1 || v >= 0.1 || v <= -0.1 || _Jump)
+        verticalInput = 0f;
+        if (riseAction.IsPressed())
         {
-            isMoving = true;
+            verticalInput += 1f;
         }
-        else
+        if (sinkAction.IsPressed())
         {
-            isMoving = false;
+            verticalInput -= 1f;
         }
+    }
 
-        //Limit Speed
-        if (rBody.linearVelocity.magnitude > Speed)
-        {
-            rBody.linearVelocity = rBody.linearVelocity.normalized * Speed;
-        }
+    private void FixedUpdate()
+    {
+        //Movement handling here as rigidbody force is handled during physics step
+        HandleMovement();
+    }
 
-        //Movement
-        this.rBody.linearVelocity = new Vector3(this.rBody.linearVelocity.x * fakeFriction, this.rBody.linearVelocity.y, this.rBody.linearVelocity.z * fakeFriction);
-        Vector3 move = this.rBody.linearVelocity; //Weird workaround that works?
-        Vector3 MovementForce = new Vector3(move.x, 0, move.z);
-        MovementForce.Normalize();
-        Vector3 MoveForce = transform.TransformDirection(MovementForce);
+    private void HandleMovement()
+    {
+        //Use of Rigidbody.AddForce to emulate underwater movement
 
-        if (isMoving)
-        {
-            rBody.AddForce(MoveForce * Speed);
-        }
+        // Horizontal movement: X and Z axes
+        Vector3 movement = new Vector3(
+            moveInput.x,
+            0f,
+            moveInput.y
+        );
 
-        if (isGrounded && canJump && _Jump || isUnderWater)
-        {
-            rBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        }
+        // Vertical movement: Y axis
+        movement.y = verticalInput;
+
+        // Apply force across all three axes
+        // Left/Right, Up/Down, Forward/Back
+        rBody.AddForce(movement.x * -moveForce, movement.y * verticalForce, movement.z * -moveForce, ForceMode.Force);
     }
 }
