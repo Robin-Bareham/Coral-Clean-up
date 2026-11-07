@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using System;
 
 public class CharacterController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class CharacterController : MonoBehaviour
     private InputAction riseAction;
     private InputAction sinkAction;
     private InputAction interactAction;
+    private InputAction photoAction;
 
     private Vector2 moveInput;
     private float verticalInput;
@@ -38,15 +40,18 @@ public class CharacterController : MonoBehaviour
         riseAction = map.FindAction("Rise");
         sinkAction = map.FindAction("Sink");
         interactAction = map.FindAction("Interact");
+        photoAction = map.FindAction("Photo");
     }
 
     private void OnEnable()
     {
+
         moveAction.Enable();
         lookAction.Enable();
         riseAction.Enable();
         sinkAction.Enable();
         interactAction.Enable();
+        photoAction.Enable();
     }
 
     private void OnDisable()
@@ -56,6 +61,7 @@ public class CharacterController : MonoBehaviour
         riseAction.Disable();
         sinkAction.Disable();
         interactAction.Disable();
+        photoAction.Disable(); 
     }
 
     private void Update()
@@ -71,6 +77,16 @@ public class CharacterController : MonoBehaviour
         if (sinkAction.IsPressed())
         {
             verticalInput -= 1f;
+        }
+        if (photoAction.IsPressed()) 
+        {
+            Debug.Log("TAKING A PHOTO");
+            string date = System.DateTime.Now.ToString();
+            date = date.Replace("/", "-");
+            date = date.Replace(" ", "_");
+            date = date.Replace(":", "-");
+            ScreenCapture.CaptureScreenshot(Application.dataPath + "/Screenshots/trials_"+date+".png");
+            //UnityEditor.AssetDatabase.Refresh();
         }
     }
 
