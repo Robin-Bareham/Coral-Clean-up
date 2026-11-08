@@ -995,7 +995,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 380330852102635161, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1222.8926
+      value: -899
       objectReference: {fileID: 0}
     - target: {fileID: 380330852102635161, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1036,6 +1036,48 @@ PrefabInstance:
     - target: {fileID: 5119074117950014498, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
       propertyPath: m_Name
       value: Base interior blockout 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.013209801
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.150004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.0193098
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999989
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0014632171
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647803876749143291, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.168
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082656344205817949, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_text
+      value: 'interact to
+
+        open door
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047085563939709422, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130322905964209623, guid: 833762ac20015f9418f96eb2dec1db5a, type: 3}
+      propertyPath: m_text
+      value: 'interact to
+
+        exit base'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
