@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     private string error_message = "";
     private bool error_occured = false;
-    private Rect centre_window_pos = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200);
+    private Rect centre_window_pos = new Rect(0,0,0,0);
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     {     
         if (error_occured) 
         {
+            centre_window_pos = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200);
             GUI.Window(0, centre_window_pos, errorWindow, "Something Fishy Happened");
         }
         
