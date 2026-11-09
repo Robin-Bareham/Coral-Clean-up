@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.LightingExplorerTableColumn;
 
 public class DebugController : MonoBehaviour
 {
     bool show_console;
     bool show_help;
+
+    [SerializeField] GameManager manager;
 
     string input;
 
@@ -14,6 +19,8 @@ public class DebugController : MonoBehaviour
     // use 'public static DebugCommand<DATA_TYPE> name' if values needs to be included
     public static DebugCommand help;
     public static DebugCommand quit;
+    public static DebugCommand<string> error;
+
     public List<object> commandList;
 
     Vector2 scroll;
@@ -49,10 +56,16 @@ public class DebugController : MonoBehaviour
             show_help = true;
         });
 
+        error = new DebugCommand<string>("error", "Calls the error window with the attached error text", "/error <error text>", (x) =>
+        {
+            manager.error(x);
+        });
+
         commandList = new List<object>
         {
             //List of command names
             //Please alphabetise
+            error,
             help,
             quit,
         };
@@ -114,12 +127,23 @@ public class DebugController : MonoBehaviour
                 {
                     (commandList[i] as DebugCommand).Invoke();
                 }
+                else if (commandList[i] as DebugCommand<string> != null)
+                {
+                    string full_text = "";
+                    for (int j = 1; j < properties.Length; j++)
+                    {
+                        full_text += " ";
+                        full_text += properties[j];
+                    }
+                    (commandList[i] as DebugCommand<string>).Invoke(full_text);
+                }
+
                 /* Template for other data types || create new uncommented 'else' whenever a new data type will be used as debug option
                 else if (commandList[i] as DebugCommand<DATA_TYPE> != null)
                 {
                     (commandList[i] as DebugCommand<DATA_TYPE>).Invoke(DATA_TYPE.Parse(properties[1]));
                 }
-                */ 
+                */
             }
 
         }
