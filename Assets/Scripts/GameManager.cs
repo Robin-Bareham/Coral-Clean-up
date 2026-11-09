@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject errorCanvas;
-    [SerializeField] TMP_Text errorBody;
+    private string error_message = "";
+    private bool error_occured = false;
+    private Rect centre_window_pos = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200);
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,18 +22,35 @@ public class GameManager : MonoBehaviour
 
     public void error(string message)
     {
+        error_message = message;
         Debug.LogError(message);
-        //errorBody.text = message;
-        //errorCanvas.SetActive(true);
-
-        GUI.Window(0, new Rect(Screen.width - 200, Screen.height - 100, 400, 200), windowFunction, message);
+        error_occured = true;        
     }
 
-    void windowFunction(int windowID)
-    {
-        if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
+    private void OnGUI()
+    {     
+        if (error_occured) 
         {
-            print("Got a click");
+            GUI.Window(0, centre_window_pos, errorWindow, "Something Fishy Happened");
+        }
+        
+    }
+
+    void errorWindow(int windowID)
+    {
+        var centeredStyle = GUI.skin.GetStyle("Label");
+        centeredStyle.alignment = TextAnchor.MiddleCenter;
+
+        GUI.Label(new Rect(0, 0, 400, 150), error_message, centeredStyle);
+        
+        if(GUI.Button( new Rect((centre_window_pos.width/2) - 75, centre_window_pos.height - 60, 70, 50), "Close"))
+        {
+            error_occured = false;
+        }
+        else if(GUI.Button(new Rect (centre_window_pos.width/2 + 5, centre_window_pos.height - 60, 70, 50), "Quit"))
+        {
+            Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 
