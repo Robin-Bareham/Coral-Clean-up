@@ -1,9 +1,11 @@
-using TMPro;
+using System;
+using System.IO;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private string error_message = "";
+    private string error_log_path = Application.dataPath + "/!Dev Info/Error Log.txt";
     private bool error_occured = false;
     private Rect centre_window_pos = new Rect(0,0,0,0);
 
@@ -11,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        createTextFile(error_log_path);
     }
 
     // Update is called once per frame
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         error_message = message;
         Debug.LogError(message);
+        File.AppendAllText(error_log_path, error_message + "\n");
         error_occured = true;        
     }
 
@@ -53,6 +56,19 @@ public class GameManager : MonoBehaviour
             Application.Quit();
             UnityEditor.EditorApplication.isPlaying = false;
         }
+    }
+
+    void createTextFile(string filepath)
+    {
+        if(!File.Exists(filepath))
+        {
+            File.WriteAllText(filepath,"Log Started: " + DateTime.Now.ToString() + "\n\n");
+        }
+        else
+        {
+            File.AppendAllText(filepath, "New Log: " + DateTime.Now.ToString() + "\n\n");
+        }
+
     }
 
     public void fishSeen(string fish_index)
