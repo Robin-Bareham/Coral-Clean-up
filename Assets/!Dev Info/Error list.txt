@@ -1,3 +1,13 @@
+Errors 001 - 100 : Daniel
 Error 001: "Fish type is not valid" - The "type" value for the fish isn't in the journal's "fish_types" array. This is either a spelling error or an absent value.
 
 Error 002: "Fish types and tracker are not equal" - fish_types and fish_tracker are different lengths. All fish types need a tracking value.
+
+Errors 101 - 200 : 
+
+Errors 201 - 300 :
+
+Errors 301 - 400 : 
+
+Errors 401 - 500 :
+
