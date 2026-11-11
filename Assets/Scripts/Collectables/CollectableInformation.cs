@@ -2,31 +2,18 @@ using UnityEngine;
 
 public class CollectableInformation : MonoBehaviour
 {
-    // Currently this script does not contrain a way to send its information to another script.
-    // this functionality will be added later.
+    
 
-    // PURPOSE: Contains information about items within the world.
-    // 
+    // The purpose of this script is to contain information about items that the player can pick up.
+    // Attach it to objects that are meant to be trash.
 
-
-
+    // On its own, this script does nothing.
 
     public string itemName;
     public string itemDescription;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void onPickup()
+    
+    public void onPickup()
     { 
         UnityEngine.Debug.Log("Picked up: " + itemName);
         Destroy(gameObject);
