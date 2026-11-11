@@ -119,9 +119,9 @@ public class CharacterController : MonoBehaviour
         float rightSpeed = relativeVelocity.x;   // Positive = moving right, Negative = moving left
         float upSpeed = relativeVelocity.y;      // Positive = moving up, Negative = moving down
 
-        Debug.Log("Forward Speed: " + forwardSpeed);
-        Debug.Log("Right Speed: " + rightSpeed);
-        Debug.Log("Up Speed: " +  upSpeed);
+        //Debug.Log("Forward Speed: " + forwardSpeed);
+        //Debug.Log("Right Speed: " + rightSpeed);
+        //Debug.Log("Up Speed: " +  upSpeed);
 
         //Affect input relative to actual input and velocity
         if(moveInput.x == 0)
