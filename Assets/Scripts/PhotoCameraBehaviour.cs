@@ -70,6 +70,6 @@ public class PhotoCameraBehaviour : MonoBehaviour
         ScreenCapture.CaptureScreenshot(Application.dataPath + "/Screenshots/trials_" + date + ".png");
         //UnityEditor.AssetDatabase.Refresh();
         //Sets it to false to avoid multiple pictures at once + camera has been 'put down'
-        photoCameraActive = false;
+        photoCameraActive = false; 
     }
 }
