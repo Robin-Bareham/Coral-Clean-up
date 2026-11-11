@@ -1,5 +1,4 @@
 {
-    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -43,19 +42,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sink",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Rise",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -418,7 +417,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Rise",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -429,7 +428,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Rise",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -440,7 +439,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Rise",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -495,7 +494,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Sink",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -506,7 +505,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Sink",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
