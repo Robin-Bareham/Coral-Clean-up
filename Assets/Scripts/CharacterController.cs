@@ -156,7 +156,7 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput = 1;
             }
-        }
+        } 
     }
 
 }
