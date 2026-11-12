@@ -9,14 +9,14 @@ public class Base : MonoBehaviour
     private Texture tank_dead_texture;
     [SerializeField]
     private Texture tank_alive_texture;
-
-    GameManager gameManager;
+    [SerializeField] GameManager manager;
 
     private GameObject sleep_UI;
     private GameObject log_UI;
     private GameObject coral_UI;
     private GameObject buttons_ui;
     private GameObject returnBaseBtn;
+    private ScriptableObject gameManagerScript;
 
     private bool coral_tank_status = false; //False is empty, true is full (can only hold one coral)
     private int coral_placed_day = 0; //contains the day the coral was placed in the tank, to know when it should grow.
@@ -44,22 +44,24 @@ public class Base : MonoBehaviour
 
     public void activateSleep()
     {
+        changeSelectedBtn(false);
         //What happens when you go to sleep in the base.
         sleep_UI.SetActive(true);
         log_UI.SetActive(false);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
-        
+
         //Call game manager to set world for the next day
-        gameManager.nextDay();
+        manager.nextDay();
     }
     public void activateLog()
     {
+        changeSelectedBtn(false);
         //What happens when you interact with the log book in the base
 
         //If the player hasn't taken a photo, tell them, nothings here! go find fish and take a photo.
-        if (gameManager.getPhotoCount() > 0)
+        if (manager.getPhotoCount() > 0)
         {
             log_UI.transform.Find("NoPhotoLog").gameObject.SetActive(true);
         }
@@ -78,14 +80,15 @@ public class Base : MonoBehaviour
 
     public void activateCoral()
     {
+        changeSelectedBtn(false);
         //If we collected coral and the tank is empty
-        if(gameManager.getCoralCount() > 0 && !coral_tank_status)
+        if (manager.getCoralCount() > 0 && !coral_tank_status)
         {
             coral_UI.GetComponent<RawImage>().texture = tank_dead_texture;
-            coral_placed_day = gameManager.getDay();
+            coral_placed_day = manager.getDay();
         }
         //If the coral is grown at least a day after planting it
-        else if (coral_tank_status && gameManager.getDay() > coral_placed_day)
+        else if (coral_tank_status && manager.getDay() > coral_placed_day)
         {
             coral_UI.GetComponent<RawImage>().texture = tank_alive_texture;
         }
@@ -112,10 +115,24 @@ public class Base : MonoBehaviour
     public void activateBaseExplore()
     {
         //Going to the state of being able to choose what base action you want to do.
+        changeSelectedBtn(true);
         sleep_UI.SetActive(false);
         log_UI.SetActive(false);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(true);
         returnBaseBtn.SetActive(false);
+    }
+
+    public void changeSelectedBtn(bool screen)
+    {
+        //TRUE means that we're in the main base selecting our options.
+        if (screen)
+        {
+            buttons_ui.transform.Find("SleepBTN").gameObject.GetComponent<Button>().Select();
+        }
+        else 
+        { 
+            returnBaseBtn.GetComponent<Button>().Select();
+        }
     }
 }
