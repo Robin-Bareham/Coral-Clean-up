@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
 
     private int photo_count = 0;
-    private int coral_count = 0;
+    private int coral_count = 1;
     private int trash_count = 0;
     private int current_day = 0;
 
