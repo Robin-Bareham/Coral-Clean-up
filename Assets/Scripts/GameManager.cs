@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     private int trash_count = 0;
     private int current_day = 0;
     private bool can_move = true;
+    private bool entering_base = false;
+
+    public GameObject BaseUI; //I am struggling to get it to just .Find it so it's going here for now
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -97,49 +100,33 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //GET SET FUNCTIONS FOR THE COUNTERS
-    public int getPhotoCount()
-    {
-        return photo_count;
-    }
+    //GET SET FUNCTIONS
+    public int getPhotoCount()  {   return photo_count;  }
 
-    public void changePhotoCount(int new_num)
-    {
-        photo_count = new_num;
-    }
+    public void setPhotoCount(int new_num) {  photo_count = new_num; }
 
-    public int getCoralCount()
-    {
-        return coral_count;
-    }
+    public int getCoralCount()   {   return coral_count; }
 
-    public void changeCoralCount(int new_num) 
-    {
-        coral_count = new_num;
-    }
+    public void setCoralCount(int new_num)  {  coral_count = new_num;   }
 
-    public int getTrashCount()
-    {
-        return trash_count;
-    }
+    public int getTrashCount()  {    return trash_count;  }
 
-    public void changeTrashCount(int new_num)
-    {
-        trash_count = new_num;
-    }
+    public void setTrashCount(int new_num)  {    trash_count = new_num;  }
 
-    public int getDay()
-    {
-        return current_day;
-    }
+    public int getDay() {   return current_day; }
 
-    public bool getCanMove()
-    {
-        return can_move;
-    }
+    public bool getCanMove() {  return can_move; }
     
-    public void changeCanMove(bool value)
+    public void setCanMove(bool value)  {  can_move = value; }
+
+    public bool getEnterBase() {   return entering_base;  }
+
+    public void setEnterBase(bool value)
     {
-        can_move = value;
+        entering_base = value;
+        if (value) 
+        {
+            BaseUI.SetActive(true);
+        }
     }
 }

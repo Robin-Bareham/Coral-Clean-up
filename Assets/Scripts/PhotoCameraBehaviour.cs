@@ -49,7 +49,7 @@ public class PhotoCameraBehaviour : MonoBehaviour
         {
             TakeAPhoto();
         }
-        if (openCameraAction.WasPressedThisFrame())
+        if (openCameraAction.WasPressedThisFrame() && manager.getCanMove())
         {
             photoCameraActive = !photoCameraActive;
             //If the camera is active, the text will appear
@@ -73,6 +73,6 @@ public class PhotoCameraBehaviour : MonoBehaviour
         //UnityEditor.AssetDatabase.Refresh();
         //Sets it to false to avoid multiple pictures at once + camera has been 'put down'
         photoCameraActive = false;
-        manager.changePhotoCount(1);
+        manager.setPhotoCount(1);
     }
 }

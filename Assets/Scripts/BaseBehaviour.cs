@@ -34,13 +34,20 @@ public class Base : MonoBehaviour
         buttons_ui = this.gameObject.transform.Find("Buttons").gameObject;
         returnBaseBtn = this.gameObject.transform.Find("BaseBtn").gameObject;
 
-        activateBaseExplore();
+        //activateBaseExplore();
+        activateOutside();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Would be used for managing what camera location it's looking at.
+        if (manager.getEnterBase())
+        {
+            Debug.Log("ACTIVATED IN BASE BEHAVIOUR");
+            activateBaseExplore();
+            manager.setEnterBase(false);
+        }
     }
 
     public void activateSleep()
@@ -119,9 +126,9 @@ public class Base : MonoBehaviour
     {
         //What happens when you go back outside of the base
         this.gameObject.SetActive(false); //Hides BaseUI
-        //Send camera back to player's camera.
-        //Send something to gameManager to allow movement of player character again
-        manager.changeCanMove(true);
+                                          //Send camera back to player's camera.
+                                          //Send something to gameManager to allow movement of player character again
+        manager.setCanMove(true);
     }
 
     public void activateBaseExplore()
@@ -134,7 +141,7 @@ public class Base : MonoBehaviour
         coral_UI.SetActive(false);
         buttons_ui.SetActive(true);
         returnBaseBtn.SetActive(false);
-        manager.changeCanMove(false);
+        manager.setCanMove(false);
     }
 
     public void changeSelectedBtn(string name)

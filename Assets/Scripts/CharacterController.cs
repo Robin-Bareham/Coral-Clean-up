@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.Rendering;
 
 public class CharacterController : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class CharacterController : MonoBehaviour
 
     private Vector2 moveInput;
     private int verticalInput;
+
+    private bool can_enter_base = false;
 
 
     private void Awake()
@@ -84,8 +87,18 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput -= 1;
             }
-            HandleDeceleration();
+            
+            if (interactAction.WasPressedThisFrame()) 
+            {
+                //If they're in the space to enter the base & haven't just exitied it.
+                if (can_enter_base)
+                {
+                    Debug.Log("ENTERING BASE");
+                    manager.setEnterBase(true);
+                }
+            }
         }
+        HandleDeceleration();
     }
 
     private void FixedUpdate()
@@ -168,4 +181,13 @@ public class CharacterController : MonoBehaviour
         } 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        can_enter_base = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        can_enter_base = false;
+    }
 }
