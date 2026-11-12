@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class GameManager : MonoBehaviour
     private bool error_occured = false;
     private Rect centre_window_pos = new Rect(0,0,0,0);
 
+
+    private int photo_count = 0;
+    private int coral_count = 0;
+    private int trash_count = 0;
+    private int current_day = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +60,7 @@ public class GameManager : MonoBehaviour
         else if(GUI.Button(new Rect (centre_window_pos.width/2 + 5, centre_window_pos.height - 60, 70, 50), "Quit"))
         {
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false; 
         }
     }
 
@@ -74,5 +80,55 @@ public class GameManager : MonoBehaviour
     public void fishSeen(string fish_index)
     {
         
+    }
+
+    //Function called upon starting day / after going to sleep
+    //This function will require expanding on as time goes on and more functions are added to the game.
+    public void nextDay()
+    {
+        //Reset oxygen counter
+        //Increase day counter
+        current_day += 1;
+
+        //Spawn fish
+        //Grow Coral
+        //Dirty/Clean areas.
+    }
+
+
+    //GET SET FUNCTIONS FOR THE COUNTERS
+    public int getPhotoCount()
+    {
+        return photo_count;
+    }
+
+    public void changePhotoCount(int new_num)
+    {
+        photo_count = new_num;
+    }
+
+    public int getCoralCount()
+    {
+        return coral_count;
+    }
+
+    public void changeCoralCount(int new_num) 
+    {
+        coral_count = new_num;
+    }
+
+    public int getTrashCount()
+    {
+        return trash_count;
+    }
+
+    public void changeTrashCount(int new_num)
+    {
+        trash_count = new_num;
+    }
+
+    public int getDay()
+    {
+        return current_day;
     }
 }
