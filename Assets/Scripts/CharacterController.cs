@@ -16,6 +16,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] 
     private float verticalForce = 10f;
 
+    [SerializeField] GameManager manager;
+
 
     private Rigidbody rBody;
 
@@ -27,6 +29,7 @@ public class CharacterController : MonoBehaviour
 
     private Vector2 moveInput;
     private int verticalInput;
+
 
     private void Awake()
     {
@@ -62,30 +65,36 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        // Read input every frame
-        moveInput = moveAction.ReadValue<Vector2>();
-
-        //Debug.Log("X = " + moveInput.x);
-        //Debug.Log("Y = " + moveInput.y);
-        //Debug.Log("Angular: x = " + rBody.angularVelocity.x + ", y = " + rBody.angularVelocity.y);
-        //Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y);        
-
-        verticalInput = 0;
-        if (riseAction.IsPressed())
+        if (manager.getCanMove())
         {
-            verticalInput += 1;
+            // Read input every frame
+            moveInput = moveAction.ReadValue<Vector2>();
+
+            //Debug.Log("X = " + moveInput.x);
+            //Debug.Log("Y = " + moveInput.y);
+            //Debug.Log("Angular: x = " + rBody.angularVelocity.x + ", y = " + rBody.angularVelocity.y);
+            //Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y);        
+
+            verticalInput = 0;
+            if (riseAction.IsPressed())
+            {
+                verticalInput += 1;
+            }
+            if (sinkAction.IsPressed())
+            {
+                verticalInput -= 1;
+            }
+            HandleDeceleration();
         }
-        if (sinkAction.IsPressed())
-        {
-            verticalInput -= 1;
-        }
-        HandleDeceleration();
     }
 
     private void FixedUpdate()
-    {        
-        //Movement handling here as rigidbody force is handled during physics step
-        HandleMovement();
+    {
+        if (manager.getCanMove())
+        {
+            //Movement handling here as rigidbody force is handled during physics step
+            HandleMovement();
+        }
     }
 
     private void HandleMovement()

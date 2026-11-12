@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private int coral_count = 1;
     private int trash_count = 0;
     private int current_day = 0;
+    private bool can_move = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -130,5 +131,15 @@ public class GameManager : MonoBehaviour
     public int getDay()
     {
         return current_day;
+    }
+
+    public bool getCanMove()
+    {
+        return can_move;
+    }
+    
+    public void changeCanMove(bool value)
+    {
+        can_move = value;
     }
 }

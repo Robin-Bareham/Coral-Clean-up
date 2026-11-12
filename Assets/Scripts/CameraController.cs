@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public Transform orientation;
 
     [SerializeField] private InputActionAsset playerControls;
+    [SerializeField] GameManager manager;
 
     private InputAction lookAction;
     private Vector2 lookInput;
@@ -42,22 +43,25 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        // Read mouse or gamepad look input
-        lookInput = lookAction.ReadValue<Vector2>();
+        if (manager.getCanMove())
+        {
+            // Read mouse or gamepad look input
+            lookInput = lookAction.ReadValue<Vector2>();
 
-        // Calculate mouse movement
-        float mouseX = lookInput.x * sensX * Time.deltaTime;
-        float mouseY = lookInput.y * sensY * Time.deltaTime;
+            // Calculate mouse movement
+            float mouseX = lookInput.x * sensX * Time.deltaTime;
+            float mouseY = lookInput.y * sensY * Time.deltaTime;
 
-        // Update rotation values
-        yRotation += mouseX;
-        xRotation -= mouseY;
+            // Update rotation values
+            yRotation += mouseX;
+            xRotation -= mouseY;
 
-        // Clamp vertical rotation to prevent camera flipping
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            // Clamp vertical rotation to prevent camera flipping
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Rotate camera and player orientation
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        orientation.rotation = Quaternion.Euler(0f, yRotation, 0f); 
+            // Rotate camera and player orientation
+            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+            orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        }
     }
 }

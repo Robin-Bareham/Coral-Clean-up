@@ -16,7 +16,7 @@ public class Base : MonoBehaviour
     private GameObject coral_UI;
     private GameObject buttons_ui;
     private GameObject returnBaseBtn;
-    private ScriptableObject gameManagerScript;
+    private GameObject no_log_UI;
 
     private bool coral_tank_status = false; //False is empty, true is full (can only hold one coral)
     private int coral_placed_day = 0; //contains the day the coral was placed in the tank, to know when it should grow.
@@ -29,6 +29,7 @@ public class Base : MonoBehaviour
         //Gets Children
         sleep_UI = this.gameObject.transform.Find("SleepUI").gameObject;
         log_UI = this.gameObject.transform.Find("LogUI").gameObject;
+        no_log_UI = this.gameObject.transform.Find("NoLogUI").gameObject;
         coral_UI = this.gameObject.transform.Find("CoralTankUI").gameObject;
         buttons_ui = this.gameObject.transform.Find("Buttons").gameObject;
         returnBaseBtn = this.gameObject.transform.Find("BaseBtn").gameObject;
@@ -59,24 +60,22 @@ public class Base : MonoBehaviour
     public void activateLog()
     {
         changeSelectedBtn("return");
-        //What happens when you interact with the log book in the base
-
-        //If the player hasn't taken a photo, tell them, nothings here! go find fish and take a photo.
-        if (manager.getPhotoCount() > 0)
-        {
-            log_UI.transform.Find("NoPhotoLog").gameObject.SetActive(true);
-        }
-        else 
-        {
-            log_UI.transform.Find("NoPhotoLog").gameObject.SetActive(false);
-        }
+        //What happens when you interact with the log book in the bas
 
         //Change UI status
         sleep_UI.SetActive(false);
-        log_UI.SetActive(true);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
+        //If a photo has been taken
+        if(manager.getPhotoCount() > 0)
+        {
+            log_UI.SetActive(true);
+        }
+        else
+        {
+            no_log_UI.SetActive(true); 
+        }
         previous_screen = "LogBTN";
     }
 
@@ -122,6 +121,7 @@ public class Base : MonoBehaviour
         this.gameObject.SetActive(false); //Hides BaseUI
         //Send camera back to player's camera.
         //Send something to gameManager to allow movement of player character again
+        manager.changeCanMove(true);
     }
 
     public void activateBaseExplore()
@@ -130,9 +130,11 @@ public class Base : MonoBehaviour
         changeSelectedBtn(previous_screen);
         sleep_UI.SetActive(false);
         log_UI.SetActive(false);
+        no_log_UI.SetActive(false);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(true);
         returnBaseBtn.SetActive(false);
+        manager.changeCanMove(false);
     }
 
     public void changeSelectedBtn(string name)
