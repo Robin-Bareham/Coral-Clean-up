@@ -2032,6 +2032,7 @@ GameObject:
   - component: {fileID: 1679805053}
   - component: {fileID: 1679805054}
   - component: {fileID: 1679805055}
+  - component: {fileID: 1679805056}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2157,6 +2158,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugController
   manager: {fileID: 679351719}
+--- !u!114 &1679805056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679805049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19acf3ef0d1d2184f99955605aac6af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interact
+  PlayerControls: {fileID: 0}
+  raycastDistance: 10
 --- !u!1001 &1716719831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2227,8 +2242,6 @@ GameObject:
   - component: {fileID: 1752735340}
   - component: {fileID: 1752735339}
   - component: {fileID: 1752735338}
-  - component: {fileID: 1752735343}
-  - component: {fileID: 1752735342}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -2370,50 +2383,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1752735342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752735336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &1752735343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752735336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19acf3ef0d1d2184f99955605aac6af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Interact
-  PlayerControls: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  raycastDistance: 30
 --- !u!1 &1767026142
 GameObject:
   m_ObjectHideFlags: 0
