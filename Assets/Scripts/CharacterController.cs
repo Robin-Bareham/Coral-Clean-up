@@ -87,14 +87,17 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput -= 1;
             }
-            
+            //THIS FUNCTION v NEEDS TO BE REPLACED WITH WHATEVER CODE SAM USED FOR HIS INTERACTIONS.
             if (interactAction.WasPressedThisFrame()) 
             {
-                //If they're in the space to enter the base & haven't just exitied it.
-                if (can_enter_base)
+                //Or atleast the content of bellow goes into the function Sam has made.
+                //If they're in the space to enter the base AND this isn't being activated the same frame the player's exited the base.
+                if (can_enter_base && manager.getJustExitedBase() != Time.frameCount) 
                 {
-                    Debug.Log("ENTERING BASE");
                     manager.setEnterBase(true);
+                    //Kills character movement so they're not floating around whilst in base screen.
+                    rBody.angularVelocity = Vector3.zero;
+                    rBody. linearVelocity = Vector3.zero;
                 }
             }
         }
@@ -181,6 +184,8 @@ public class CharacterController : MonoBehaviour
         } 
     }
 
+    //If the player enters the base's trigger box.
+    //(not specific for now as that's the only trigger box we have, will need to have more checks if there are more triggers)
     private void OnTriggerEnter(Collider other)
     {
         can_enter_base = true;

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private int current_day = 0;
     private bool can_move = true;
     private bool entering_base = false;
+    private float just_exited_base = -0.0f;
 
     public GameObject BaseUI; //I am struggling to get it to just .Find it so it's going here for now
 
@@ -90,11 +91,12 @@ public class GameManager : MonoBehaviour
     //This function will require expanding on as time goes on and more functions are added to the game.
     public void nextDay()
     {
-        //Reset oxygen counter
-        //Increase day counter
+        //Increase Day Counter.
         current_day += 1;
-
-        //Spawn fish
+        //Reset oxygen counter.
+       
+        //Things bellow here would need to reset / respawn what starts in the scene for Alpha
+        //Spawn fish 
         //Grow Coral
         //Dirty/Clean areas.
     }
@@ -117,7 +119,17 @@ public class GameManager : MonoBehaviour
 
     public bool getCanMove() {  return can_move; }
     
-    public void setCanMove(bool value)  {  can_move = value; }
+    public void setCanMove(bool value)  
+    {
+        can_move = value;
+        //Gets the frame you exit the base to stop same-frame inputs causing you to get stuck in the base.
+        just_exited_base = Time.frameCount;
+    }
+
+    public float getJustExitedBase()
+    {
+        return just_exited_base;
+    }
 
     public bool getEnterBase() {   return entering_base;  }
 
@@ -126,7 +138,11 @@ public class GameManager : MonoBehaviour
         entering_base = value;
         if (value) 
         {
-            BaseUI.SetActive(true);
+            BaseUI.GetComponent<Base>().activateBaseExplore(); //Makes sure correct visual is shown
+            BaseUI.SetActive(true); // Then makes the UI Active
+
+            //This is where you'd also be able to 'empty' the trash that's collected.
+            //Something where the icon would show that the trash is emptied (text saying, trash emptied that only appears when entering)
         }
     }
 }

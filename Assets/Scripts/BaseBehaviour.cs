@@ -50,85 +50,95 @@ public class Base : MonoBehaviour
         }
     }
 
-    public void activateSleep()
+    public void activateSleep() //What will happen when the player goes to sleep
     {
-        changeSelectedBtn("return");
-        //What happens when you go to sleep in the base.
+        changeSelectedBtn("return");//Highlight return button
+        //Activate relevant UI
         sleep_UI.SetActive(true);
         log_UI.SetActive(false);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
-
+        previous_screen = "SleepBTN";
         //Call game manager to set world for the next day
         manager.nextDay();
-        previous_screen = "SleepBTN";
+        
     }
-    public void activateLog()
+    public void activateLog() //What happens when the player looks at the log book.
     {
-        changeSelectedBtn("return");
-        //What happens when you interact with the log book in the bas
-
-        //Change UI status
+        changeSelectedBtn("return"); //Highlight return button
+        //Activate relevant UI
         sleep_UI.SetActive(false);
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
+        previous_screen = "LogBTN";
+
         //If a photo has been taken
-        if(manager.getPhotoCount() > 0)
+        if (manager.getPhotoCount() > 0)
         {
-            log_UI.SetActive(true);
+            log_UI.SetActive(true); //Page is shown
         }
         else
         {
-            no_log_UI.SetActive(true); 
+            no_log_UI.SetActive(true); //Page is blank
         }
-        previous_screen = "LogBTN";
+        
     }
 
-    public void activateCoral()
+    public void activateCoral() //What happens when the player looks at the coral tank.
     {
-        changeSelectedBtn("return");
-        //If we collected coral and the tank is empty
-        if (manager.getCoralCount() > 0 && !coral_tank_status)
-        {
-            coral_UI.GetComponent<RawImage>().texture = tank_dead_texture;
-            coral_placed_day = manager.getDay();
-            coral_tank_status = true;
-        }
-        //If there's something in the tanks
-        else if (coral_tank_status)
-        {
-            if (manager.getDay() > coral_placed_day)
-            {
-                coral_UI.GetComponent<RawImage>().texture = tank_alive_texture;
-            }
-            else
-            {
-                coral_UI.GetComponent<RawImage>().texture = tank_dead_texture;
-            }
-            
-        }
-        else
-        {
-            coral_UI.GetComponent<RawImage>().texture = tank_empty_texture;
-        }
-        //What happens when you interact with the coral tank in the base
+        changeSelectedBtn("return");//Highlight return button
+        //Activate relevant UI
         sleep_UI.SetActive(false);
         log_UI.SetActive(false);
         coral_UI.SetActive(true);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
         previous_screen = "CoralBTN";
+
+        //If we collected coral and the tank is empty
+        if (manager.getCoralCount() > 0 && !coral_tank_status)
+        {
+            //Place the coral in the tank, get what day it's been planted
+            coral_UI.GetComponent<RawImage>().texture = tank_dead_texture;
+            coral_placed_day = manager.getDay();
+            coral_tank_status = true; //Tank labled as true to avoid multiple placing.
+            //Also would need removal of coral from the inventory, that could go here.
+        }
+        //If there's something in the tanks
+        else if (coral_tank_status)
+        {
+            //If the coral has been in there for over a day, its grown and alive.
+            if (manager.getDay() > coral_placed_day)
+            {
+                //Set some value to make it available to pick up. Would require a choice to appear
+                //Going 'Do you want to remove this alive coral?" though that's a later task.
+                coral_UI.GetComponent<RawImage>().texture = tank_alive_texture;
+            }
+            else
+            {
+                //Still show the dead coral.
+                coral_UI.GetComponent<RawImage>().texture = tank_dead_texture;
+            }
+            //An option to swap coral out if the player is carrying another piece of coral. (Beta addition)
+        }
+        //If there's nothing growing and the player doesn't have anything to put in there.
+        else
+        {
+            coral_UI.GetComponent<RawImage>().texture = tank_empty_texture;
+        }
+        
     }
 
     public void activateOutside()
     {
         //What happens when you go back outside of the base
         this.gameObject.SetActive(false); //Hides BaseUI
-                                          //Send camera back to player's camera.
-                                          //Send something to gameManager to allow movement of player character again
+        //Send camera back to player's camera.
+        //Send something to gameManager to allow movement of player character again
         manager.setCanMove(true);
+        //
     }
 
     public void activateBaseExplore()
@@ -144,7 +154,7 @@ public class Base : MonoBehaviour
         manager.setCanMove(false);
     }
 
-    public void changeSelectedBtn(string name)
+    public void changeSelectedBtn(string name) //Just to ensure the buttons for the Alpha base can be selected properly.
     {
         //TRUE means that we're in the main base selecting our options.
         if (name == "return")
