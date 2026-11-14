@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e99bafc8f023bdd429d8dadebd888c61, type: 2}
+  - {fileID: 2100000, guid: d747b9baa04ffcc44ba4a684f80ee79d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,8 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e6f968efbf5a4a9c2faf60db9bf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectableInformation
-  itemName: Pollution Cube
-  itemDescription: A polluting cube, better get it out of here!
+  itemName: GenericCollectable
+  itemDescription: A generic collectable, quite generic!
+  isTrash: 0
+  isCoral: 0
+  isOther: 1
 --- !u!64 &-3832740606969900257
 MeshCollider:
   m_ObjectHideFlags: 0

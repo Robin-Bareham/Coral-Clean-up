@@ -63,6 +63,7 @@ public class CharacterController : MonoBehaviour
         // Read input every frame
         moveInput = moveAction.ReadValue<Vector2>();
 
+        /*
         verticalInput = 0f;
         if (riseAction.IsPressed())
         {
@@ -72,6 +73,7 @@ public class CharacterController : MonoBehaviour
         {
             verticalInput -= 1f;
         }
+        */
     }
 
     private void FixedUpdate()

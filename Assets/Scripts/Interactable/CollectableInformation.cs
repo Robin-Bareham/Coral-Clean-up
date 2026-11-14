@@ -11,8 +11,17 @@ public class CollectableInformation : MonoBehaviour
 
     public string itemName;
     public string itemDescription;
-
     
+
+    // Item Indentifiers.
+    // ONLY EVER ENABLE ONE AT A TIME.
+    public bool isTrash;
+    public bool isCoral;
+    public bool isOther;
+
+
+
+
     public void onPickup()
     { 
         UnityEngine.Debug.Log("Picked up: " + itemName);
