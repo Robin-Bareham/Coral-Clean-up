@@ -75,7 +75,7 @@ public class Interact : MonoBehaviour
                 if (collectable.isTrash)
                 {
                     collectable.onPickup();
-                    setamountOfCoralCollected(getamountOfCoralCollecter() + 1);
+                    setamountOfTrashCollected(getamountOfTrashCollecter() + 1);
                     UnityEngine.Debug.Log("Trash collected: " + getamountOfTrashCollecter());
                     manager.add_to_trash_instance(collectable.gameObject.transform.position);
                 }

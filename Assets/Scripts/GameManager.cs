@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     public int getTrashCount()  {    return trash_count;  }
 
-    public void setTrashCount(int new_num)  {    trash_count = new_num;  }
+    public void setTrashCount(int new_num)  {    trash_count = new_num;    }
 
     public int getDay() {   return current_day; }
 
@@ -168,9 +168,10 @@ public class GameManager : MonoBehaviour
             BaseUI.SetActive(true); // Then makes the UI Active
 
             //This is where you'd also be able to 'empty' the trash that's collected.
+            //Text in base that'll show if you've got trash to empty.
+            if(trash_count > 0) { BaseUI.gameObject.transform.Find("TrashGone").gameObject.SetActive(true); }
+            else { BaseUI.gameObject.transform.Find("TrashGone").gameObject.SetActive(false); }
             trash_count = 0;
-            //BaseUI.gameObject.transform.Find("Trash Emptied").gameObject.SetActive(true);
-            //Something where the icon would show that the trash is emptied (text saying, trash emptied that only appears when entering)
         }
     }
 
