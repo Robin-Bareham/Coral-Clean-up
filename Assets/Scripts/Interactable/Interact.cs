@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using UnityEditor.Analytics;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ using UnityEngine.InputSystem;
 ///
 public class Interact : MonoBehaviour
 {
+    GameManager manager;
     [SerializeField]
     private InputActionAsset PlayerControls;
 
@@ -50,7 +52,7 @@ public class Interact : MonoBehaviour
     // Using input system message call
     void OnInteract()
     { 
-        performRaycast();
+        performRaycast();   
     }
 
     void performRaycast() 
@@ -91,7 +93,8 @@ public class Interact : MonoBehaviour
                 }
                 else 
                 {
-                    UnityEngine.Debug.Log("ERROR, Collectable item not tagged");
+                    //UnityEngine.Debug.Log("ERROR, Collectable item not tagged");
+                    manager.error("Error 101: Collectable item not tagged");
                 }
                 
             }
