@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 ///
 public class Interact : MonoBehaviour
 {
-    GameManager manager;
+    [SerializeField] GameManager manager;
     [SerializeField]
     private InputActionAsset PlayerControls;
 
@@ -23,11 +23,6 @@ public class Interact : MonoBehaviour
     int amountOfTrashCollected = 0;
     int amountOfCoralCollected = 0;
 
-
-
-
-
-
     public int getamountOfTrashCollecter() 
     {
         return amountOfTrashCollected;
@@ -35,6 +30,7 @@ public class Interact : MonoBehaviour
     public void setamountOfTrashCollected(int i) 
     {
         amountOfTrashCollected = i;
+        manager.setTrashCount(amountOfTrashCollected);
     }
 
     public int getamountOfCoralCollecter()
@@ -44,6 +40,7 @@ public class Interact : MonoBehaviour
     public void setamountOfCoralCollected(int i)
     {
         amountOfCoralCollected = i;
+        manager.setCoralCount(amountOfCoralCollected);
     }
 
 
@@ -80,12 +77,14 @@ public class Interact : MonoBehaviour
                     collectable.onPickup();
                     setamountOfCoralCollected(getamountOfCoralCollecter() + 1);
                     UnityEngine.Debug.Log("Trash collected: " + getamountOfTrashCollecter());
+                    manager.add_to_trash_instance(collectable.gameObject.transform.position);
                 }
                 else if (collectable.isCoral)
                 {
                     collectable.onPickup();
                     setamountOfCoralCollected(getamountOfCoralCollecter() + 1);
                     UnityEngine.Debug.Log("Coral collected: " + getamountOfCoralCollecter());
+                    manager.add_to_coral_instance(collectable.gameObject.transform.position);
                 }
                 else if (collectable.isOther)
                 {

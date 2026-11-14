@@ -17,6 +17,7 @@ public class Base : MonoBehaviour
     private GameObject buttons_ui;
     private GameObject returnBaseBtn;
     private GameObject no_log_UI;
+    //private GameObject trash_emptied_txt;
 
     private bool coral_tank_status = false; //False is empty, true is full (can only hold one coral)
     private int coral_placed_day = 0; //contains the day the coral was placed in the tank, to know when it should grow.
@@ -33,7 +34,7 @@ public class Base : MonoBehaviour
         coral_UI = this.gameObject.transform.Find("CoralTankUI").gameObject;
         buttons_ui = this.gameObject.transform.Find("Buttons").gameObject;
         returnBaseBtn = this.gameObject.transform.Find("BaseBtn").gameObject;
-
+        //trash_emptied_txt = this.gameObject.transform.Find("Trash Emptied").gameObject;
         //activateBaseExplore();
         activateOutside();
     }
@@ -59,6 +60,7 @@ public class Base : MonoBehaviour
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
+        //trash_emptied_txt.SetActive(false);
         previous_screen = "SleepBTN";
         //Call game manager to set world for the next day
         manager.nextDay();
@@ -72,6 +74,7 @@ public class Base : MonoBehaviour
         coral_UI.SetActive(false);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
+        //trash_emptied_txt.SetActive(false);
         previous_screen = "LogBTN";
 
         //If a photo has been taken
@@ -95,6 +98,7 @@ public class Base : MonoBehaviour
         coral_UI.SetActive(true);
         buttons_ui.SetActive(false);
         returnBaseBtn.SetActive(true);
+        //trash_emptied_txt.SetActive(false);
         previous_screen = "CoralBTN";
 
         //If we collected coral and the tank is empty

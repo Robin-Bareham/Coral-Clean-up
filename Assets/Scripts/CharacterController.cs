@@ -87,10 +87,8 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput -= 1;
             }
-            //THIS FUNCTION v NEEDS TO BE REPLACED WITH WHATEVER CODE SAM USED FOR HIS INTERACTIONS.
             if (interactAction.WasPressedThisFrame()) 
             {
-                //Or atleast the content of bellow goes into the function Sam has made.
                 //If they're in the space to enter the base AND this isn't being activated the same frame the player's exited the base.
                 if (can_enter_base && manager.getJustExitedBase() != Time.frameCount) 
                 {
