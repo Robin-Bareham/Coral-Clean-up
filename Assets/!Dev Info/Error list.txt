@@ -3,7 +3,8 @@ Error 001: "Fish type is not valid" - The "type" value for the fish isn't in the
 
 Error 002: "Fish types and tracker are not equal" - fish_types and fish_tracker are different lengths. All fish types need a tracking value.
 
-Errors 101 - 200 : 
+Errors 101 - 200 : Samual
+Error 101: "An collectable item that has attempted to be collected is not tagged with an item type. Assign an item type via the inspector"
 
 Errors 201 - 300 :
 
