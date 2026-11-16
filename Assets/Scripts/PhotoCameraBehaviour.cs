@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using FMODUnity;
 public class PhotoCameraBehaviour : MonoBehaviour
 {
     [SerializeField]
@@ -61,6 +62,11 @@ public class PhotoCameraBehaviour : MonoBehaviour
         //Hides UI
         camera_text.gameObject.SetActive(false);
         Debug.Log("TAKING A PHOTO");
+
+        //Plays 'CameraShoot' Event 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.CameraShoot, this.transform.position);
+
+
         //Adds the time to the string, having to replace / spaces and : as they're not accepted in file names
         string date = System.DateTime.Now.ToString();
         date = date.Replace("/", "-");
