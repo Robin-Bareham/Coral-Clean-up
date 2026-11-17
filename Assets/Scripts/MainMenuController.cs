@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuController : MonoBehaviour
 {
     [Header("Menu Panels")]
     [SerializeField] private GameObject MainMenuPanel;
     [SerializeField] private GameObject SettingsPanel;
+
+    [Header("First Selected Buttons")]
+    [SerializeField] private GameObject MainMenuFirstButton;
+    [SerializeField] private GameObject SettingsFirstButton;
 
     [Header("Gameplay Scene")]
     [SerializeField] private string SampleScene = "SampleScene";
@@ -27,6 +32,7 @@ public class MainMenuController : MonoBehaviour
         // Hides the main buttons/title and opens the settings panel
         MainMenuPanel.SetActive(false);
         SettingsPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(SettingsFirstButton);
     }
 
     public void ShowMainMenu()
@@ -34,6 +40,7 @@ public class MainMenuController : MonoBehaviour
         // Shows the main buttons/title and hides the settings panel
         MainMenuPanel.SetActive(true);
         SettingsPanel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(MainMenuFirstButton);
     }
 
     public void OnExitGameClicked()
