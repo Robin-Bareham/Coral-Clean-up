@@ -13,6 +13,8 @@ public class PhotoCameraBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject camera_text;
 
+    [SerializeField] GameManager manager;
+
     private InputAction takePhotoAction;
     private InputAction openCameraAction;
     private bool photoCameraActive = false;
@@ -48,7 +50,7 @@ public class PhotoCameraBehaviour : MonoBehaviour
         {
             TakeAPhoto();
         }
-        if (openCameraAction.WasPressedThisFrame())
+        if (openCameraAction.WasPressedThisFrame() && manager.getCanMove())
         {
             photoCameraActive = !photoCameraActive;
             //If the camera is active, the text will appear
@@ -76,6 +78,7 @@ public class PhotoCameraBehaviour : MonoBehaviour
         ScreenCapture.CaptureScreenshot(Application.dataPath + "/Screenshots/trials_" + date + ".png");
         //UnityEditor.AssetDatabase.Refresh();
         //Sets it to false to avoid multiple pictures at once + camera has been 'put down'
-        photoCameraActive = false; 
+        photoCameraActive = false;
+        manager.setPhotoCount(1);
     }
 }

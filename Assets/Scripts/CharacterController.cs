@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.Rendering;
 
 public class CharacterController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] 
     private float verticalForce = 10f;
 
+    [SerializeField] GameManager manager;
+
 
     private Rigidbody rBody;
 
@@ -27,6 +30,9 @@ public class CharacterController : MonoBehaviour
 
     private Vector2 moveInput;
     private int verticalInput;
+
+    private bool can_enter_base = false;
+
 
     private void Awake()
     {
@@ -62,30 +68,47 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        // Read input every frame
-        moveInput = moveAction.ReadValue<Vector2>();
-
-        //Debug.Log("X = " + moveInput.x);
-        //Debug.Log("Y = " + moveInput.y);
-        //Debug.Log("Angular: x = " + rBody.angularVelocity.x + ", y = " + rBody.angularVelocity.y);
-        //Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y);        
-
-        verticalInput = 0;
-        if (riseAction.IsPressed())
+        if (manager.getCanMove())
         {
-            verticalInput += 1;
-        }
-        if (sinkAction.IsPressed())
-        {
-            verticalInput -= 1;
+            // Read input every frame
+            moveInput = moveAction.ReadValue<Vector2>();
+
+            //Debug.Log("X = " + moveInput.x);
+            //Debug.Log("Y = " + moveInput.y);
+            //Debug.Log("Angular: x = " + rBody.angularVelocity.x + ", y = " + rBody.angularVelocity.y);
+            //Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y);        
+
+            verticalInput = 0;
+            if (riseAction.IsPressed())
+            {
+                verticalInput += 1;
+            }
+            if (sinkAction.IsPressed())
+            {
+                verticalInput -= 1;
+            }
+            if (interactAction.WasPressedThisFrame()) 
+            {
+                //If they're in the space to enter the base AND this isn't being activated the same frame the player's exited the base.
+                if (can_enter_base && manager.getJustExitedBase() != Time.frameCount) 
+                {
+                    manager.setEnterBase(true);
+                    //Kills character movement so they're not floating around whilst in base screen.
+                    rBody.angularVelocity = Vector3.zero;
+                    rBody. linearVelocity = Vector3.zero;
+                }
+            }
         }
         HandleDeceleration();
     }
 
     private void FixedUpdate()
-    {        
-        //Movement handling here as rigidbody force is handled during physics step
-        HandleMovement();
+    {
+        if (manager.getCanMove())
+        {
+            //Movement handling here as rigidbody force is handled during physics step
+            HandleMovement();
+        }
     }
 
     private void HandleMovement()
@@ -159,4 +182,15 @@ public class CharacterController : MonoBehaviour
         } 
     }
 
+    //If the player enters the base's trigger box.
+    //(not specific for now as that's the only trigger box we have, will need to have more checks if there are more triggers)
+    private void OnTriggerEnter(Collider other)
+    {
+        can_enter_base = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        can_enter_base = false;
+    }
 }
