@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private float just_exited_base = -0.0f;
 
     public GameObject BaseUI; //I am struggling to get it to just .Find it so it's going here for now
+    [SerializeField] GameObject oxygen_ui;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour
         {
             //Turn oxygen on so that it depletes
             oxygen.underwater = true;
+            oxygen_ui.SetActive(true);
         }
     }
 
@@ -185,6 +187,7 @@ public class GameManager : MonoBehaviour
 
             //Oxygen no longer depletes
             oxygen.underwater = false;
+            oxygen_ui.SetActive(false);
         }
     }
 

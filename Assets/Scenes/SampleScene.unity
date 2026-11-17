@@ -1647,6 +1647,7 @@ MonoBehaviour:
   coral_instance: {fileID: 224651650}
   trash_instance: {fileID: 1890059792}
   BaseUI: {fileID: 1491543871}
+  oxygen_ui: {fileID: 1620371561}
 --- !u!1001 &682770021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2236,6 +2237,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &879562590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879562591}
+  m_Layer: 0
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879562591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879562590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 90.1, y: 102.21, z: -59.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3384,6 +3416,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1679805050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1620371561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 898106964890588795, guid: e34967f9a62621449b7425de2ead8708, type: 3}
+  m_PrefabInstance: {fileID: 1732259403}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1679805049
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,6 +3647,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: OxygenUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1695412860663289162, guid: e34967f9a62621449b7425de2ead8708, type: 3}
+      propertyPath: spawn
+      value: 
+      objectReference: {fileID: 879562590}
+    - target: {fileID: 1695412860663289162, guid: e34967f9a62621449b7425de2ead8708, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1679805049}
     - target: {fileID: 1695412860663289162, guid: e34967f9a62621449b7425de2ead8708, type: 3}
       propertyPath: manager
       value: 
@@ -4522,3 +4567,4 @@ SceneRoots:
   - {fileID: 47144491}
   - {fileID: 1124869163}
   - {fileID: 1732259403}
+  - {fileID: 879562591}
