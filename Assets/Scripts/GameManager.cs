@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         else if(GUI.Button(new Rect (centre_window_pos.width/2 + 5, centre_window_pos.height - 60, 70, 50), "Quit"))
         {
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false; 
+            //UnityEditor.EditorApplication.isPlaying = false; 
         }
     }
 
