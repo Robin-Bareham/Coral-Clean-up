@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [Gamepad West / E] to collect trash
+  m_text: Press [Gamepad West] to collect trash
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [Gamepad West/E] to clean the coral. You'll see it change colour!
+  m_text: Press [Gamepad West] to clean the coral. You'll see it change colour once!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2661,8 +2661,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press [Left Trigger/L] to open the camera then [Right Trigger/P] to take
-    a photo.
+  m_text: 'Press [Left Trigger] to open the camera then [Right Trigger] to take a
+    photo.
 
     (Listen for the click!)'
   m_isRightToLeft: 0
@@ -4788,7 +4788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [Gamepad West / E] to pick up coral
+  m_text: Press [Gamepad West] to pick up coral
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5231,7 +5231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7645588687807154892, guid: d12868bc229ef7546a6c561548e24b06, type: 3}
       propertyPath: m_text
-      value: When inside here, Press [Gamepad West / E] to enter the base.
+      value: When inside here, Press [Gamepad West] to enter the base.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
