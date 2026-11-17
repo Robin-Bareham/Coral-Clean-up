@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] Oxygen oxygen;
     //For instantiating objects in day reset (basic for Alpha)
     public Transform coral_instance;
     public Transform trash_instance;
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
         //Increase Day Counter.
         current_day += 1;
         //Reset oxygen counter.
+        oxygen.setOxygen(oxygen.time_limit);
 
         //Replaces the coral and trash (for alpha it just respawns them)
         recreateObjects();
@@ -150,12 +152,20 @@ public class GameManager : MonoBehaviour
         can_move = value;
         //Gets the frame you exit the base to stop same-frame inputs causing you to get stuck in the base.
         just_exited_base = Time.frameCount;
+
+        if(value)
+        {
+            //Turn oxygen on so that it depletes
+            oxygen.underwater = true;
+        }
     }
 
     public float getJustExitedBase()
     {
         return just_exited_base;
     }
+
+    
 
     public bool getEnterBase() {   return entering_base;  }
 
@@ -172,6 +182,9 @@ public class GameManager : MonoBehaviour
             if(trash_count > 0) { BaseUI.gameObject.transform.Find("TrashGone").gameObject.SetActive(true); }
             else { BaseUI.gameObject.transform.Find("TrashGone").gameObject.SetActive(false); }
             trash_count = 0;
+
+            //Oxygen no longer depletes
+            oxygen.underwater = false;
         }
     }
 

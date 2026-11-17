@@ -12,9 +12,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Transform cameraRotation;
 
-    [SerializeField] 
+    [SerializeField]
     private float moveForce = 10f;
-    [SerializeField] 
+    [SerializeField]
     private float verticalForce = 10f;
 
     [SerializeField] GameManager manager;
@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         rBody = GetComponent<Rigidbody>();
-        
+
         InputActionMap map = PlayerControls.FindActionMap("Player");
 
         moveAction = map.FindAction("Move");
@@ -76,7 +76,7 @@ public class CharacterController : MonoBehaviour
             //Debug.Log("X = " + moveInput.x);
             //Debug.Log("Y = " + moveInput.y);
             //Debug.Log("Angular: x = " + rBody.angularVelocity.x + ", y = " + rBody.angularVelocity.y);
-            //Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y);        
+            Debug.Log("Linear: x = " + rBody.linearVelocity.x + ", y = " + rBody.linearVelocity.y + ", z = " + rBody.linearVelocity.z);        
 
             verticalInput = 0;
             if (riseAction.IsPressed())
@@ -87,15 +87,15 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput -= 1;
             }
-            if (interactAction.WasPressedThisFrame()) 
+            if (interactAction.WasPressedThisFrame())
             {
                 //If they're in the space to enter the base AND this isn't being activated the same frame the player's exited the base.
-                if (can_enter_base && manager.getJustExitedBase() != Time.frameCount) 
+                if (can_enter_base && manager.getJustExitedBase() != Time.frameCount)
                 {
                     manager.setEnterBase(true);
                     //Kills character movement so they're not floating around whilst in base screen.
                     rBody.angularVelocity = Vector3.zero;
-                    rBody. linearVelocity = Vector3.zero;
+                    rBody.linearVelocity = Vector3.zero;
                 }
             }
         }
@@ -114,6 +114,10 @@ public class CharacterController : MonoBehaviour
     private void HandleMovement()
     {
         //Use of Rigidbody.AddForce to emulate underwater movement
+        if (moveInput.x != 0f || moveInput.y != 0f || verticalInput != 0f)
+        {
+            rBody.isKinematic = false;
+        }
 
         // Get orientation
         Vector3 forward = cameraRotation.forward;
@@ -147,20 +151,32 @@ public class CharacterController : MonoBehaviour
         //Debug.Log("Up Speed: " +  upSpeed);
 
         //Affect input relative to actual input and velocity
-        if(moveInput.x == 0)
+        if (moveInput.x == 0)
         {
-            if(rightSpeed > 0f)
+            //Debug.Log("MoveInput x is Zero: " + moveInput.x);
+            //Debug.Log("Right Speed: " + rightSpeed);
+            if (rightSpeed >= -0.2f && rightSpeed <= 0.2f)
+            {
+                //Debug.Log("ITS AT ZERO!!!!");
+            }
+            else if (rightSpeed > 0f)
             {
                 moveInput.x = -1f;
             }
-            else if(rightSpeed < 0f)
+            else if (rightSpeed < 0f)
             {
                 moveInput.x = 1f;
             }
         }
         if (moveInput.y == 0)
         {
-            if (forwardSpeed > 0f)
+            //Debug.Log("MoveInput y is Zero: " + moveInput.y);
+            //Debug.Log("Forward Speed: " + forwardSpeed);
+            if (forwardSpeed >= -0.2f && forwardSpeed <= 0.2f)
+            {
+                //Debug.Log("ITS AT ZERO!!!!");
+            }
+            else if (forwardSpeed > 0f)
             {
                 moveInput.y = -1f;
             }
@@ -171,7 +187,13 @@ public class CharacterController : MonoBehaviour
         }
         if (verticalInput == 0)
         {
-            if (upSpeed > 0f)
+            //Debug.Log("Vertical Input is Zero: " + verticalInput);
+            //Debug.Log("Up Speed: " + upSpeed);
+            if (upSpeed >= -0.2f && upSpeed <= 0.2f)
+            {
+               //Debug.Log("ITS AT ZERO!!!!");
+            }
+            else if (upSpeed > 0f)
             {
                 verticalInput = -1;
             }
@@ -179,7 +201,27 @@ public class CharacterController : MonoBehaviour
             {
                 verticalInput = 1;
             }
-        } 
+        }
+
+        if (moveInput.x == 0 && moveInput.y == 0 && verticalInput == 0)
+        {
+            //Debug.Log("Is this part activating??");
+            if (Mathf.Approximately(0, rBody.linearVelocity.x) || (rBody.linearVelocity.x < 0.15f && rBody.linearVelocity.x > -0.15f))
+            {
+                //Debug.Log("Velocity X");
+                rBody.isKinematic = true;
+            }
+            if (Mathf.Approximately(0, rBody.linearVelocity.y) || (rBody.linearVelocity.y < 0.15f && rBody.linearVelocity.y > -0.15f))
+            {
+                //Debug.Log("Velocity y");
+                rBody.isKinematic = true;
+            }
+            if (Mathf.Approximately(0, rBody.linearVelocity.z) || (rBody.linearVelocity.z < 0.15f && rBody.linearVelocity.z > -0.15f))
+            {
+                //Debug.Log("Velocity z");
+                rBody.isKinematic = true;
+            }
+        }
     }
 
     //If the player enters the base's trigger box.
