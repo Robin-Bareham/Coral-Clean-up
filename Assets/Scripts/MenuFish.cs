@@ -3,7 +3,7 @@ using UnityEngine;
 public class SwimmingFish : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float swimSpeed = 100f;
+    [SerializeField] private float swimSpeed = 150f;
     [SerializeField] private bool swimRight = true;
     [SerializeField] private bool spriteFacesLeftByDefault = false;
     [SerializeField] private float bobHeight = 10f;
